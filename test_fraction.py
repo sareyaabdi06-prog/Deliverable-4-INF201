@@ -54,3 +54,32 @@ def test_comparison_with_other_types():
 
     with pytest.raises(TypeError):
         Fraction(1, 2) < 1
+
+# Aritmetikk
+
+def test_add():
+    assert Fraction(1, 2) + Fraction(1, 3) == Fraction(5, 6)
+
+
+def test_sub():
+    assert Fraction(1, 2) - Fraction(1, 3) == Fraction(1, 6)
+    assert Fraction(1, 3) - Fraction(1, 2) == Fraction(-1, 6)
+
+
+def test_mul():
+    assert Fraction(2, 3) * Fraction(3, 4) == Fraction(1, 2)
+
+
+def test_div():
+    assert Fraction(1, 2) / Fraction(1, 4) == Fraction(2)
+    assert Fraction(1, 2) / Fraction(-1, 4) == Fraction(-2)
+
+
+def test_div_by_zero():
+    with pytest.raises(ZeroDivisionError):
+        Fraction(1, 2) / Fraction(0, 5)
+
+
+def test_arithmetic_with_other_types():
+    with pytest.raises(TypeError):
+        Fraction(1, 2) + 1
