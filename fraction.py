@@ -131,3 +131,53 @@ class Fraction:
 
         a, b = self._key(other)
         return a >= b
+
+    # --- andre spesialmetoder ---
+
+    def __add__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
+
+        return Fraction(self._numerator * other._denominator + other._numerator * self._denominator,
+                        self._denominator * other._denominator)
+
+    def __sub__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
+
+        return Fraction(self._numerator * other._denominator - other._numerator * self._denominator,
+                        self._denominator * other._denominator)
+
+    def __mul__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
+
+        return Fraction(self._numerator * other._numerator,
+                        self._denominator * other._denominator)
+
+    def __truediv__(self, other):
+        if not isinstance(other, Fraction):
+            return NotImplemented
+
+        if other._numerator == 0:
+            raise ZeroDivisionError("Cannot divide by a zero fraction.")
+
+        num = self._numerator * other._denominator
+        den = self._denominator * other._numerator
+
+        if den < 0:  # hold nevneren positiv
+            num, den = -num, -den
+
+        return Fraction(num, den)
+
+    def __neg__(self):
+        return Fraction(-self._numerator, self._denominator)
+
+    def __abs__(self):
+        return Fraction(abs(self._numerator), self._denominator)
+
+    def __float__(self):
+        return self._numerator / self._denominator
+
+    def __hash__(self):
+        return hash((self._numerator, self._denominator))
