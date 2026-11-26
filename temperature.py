@@ -20,3 +20,10 @@ class Temperature:
         # Sjekk absolutt nullpunkt (0 K) ved å regne om til Kelvin
         if self.to_kelvin() < -TOLERANCE:
             raise ValueError("Temperature cannot be below absolute zero (0 K).")
+
+
+    @staticmethod
+    def _validate_unit(unit):
+        if not isinstance(unit, str) or unit.upper() not in _VALID_UNITS:
+            raise ValueError(f"Invalid unit {unit!r}. Use 'C', 'F' or 'K'.")
+        return unit.upper()
