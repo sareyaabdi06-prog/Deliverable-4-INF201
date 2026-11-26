@@ -82,3 +82,52 @@ class Temperature:
 
     def __str__(self):
         return f"{self._value:.2f} °{self._unit}"
+
+
+    # --- sammenligninger (alle via Kelvin) ---
+
+    def _cmp_kelvin(self, other):
+        return self.to_kelvin(), other.to_kelvin()
+
+    def __eq__(self, other):
+        if not isinstance(other, Temperature):
+            return NotImplemented
+
+        a, b = self._cmp_kelvin(other)
+        return abs(a - b) <= TOLERANCE
+
+    def __ne__(self, other):
+        result = self.__eq__(other)
+        return result if result is NotImplemented else not result
+
+    def __lt__(self, other):
+        if not isinstance(other, Temperature):
+            return NotImplemented
+
+        a, b = self._cmp_kelvin(other)
+        return a < b and abs(a - b) > TOLERANCE
+
+    def __le__(self, other):
+        if not isinstance(other, Temperature):
+            return NotImplemented
+
+        a, b = self._cmp_kelvin(other)
+        return a < b or abs(a - b) <= TOLERANCE
+
+    def __gt__(self, other):
+        if not isinstance(other, Temperature):
+            return NotImplemented
+
+        a, b = self._cmp_kelvin(other)
+        return a > b and abs(a - b) > TOLERANCE
+
+    def __ge__(self, other):
+        if not isinstance(other, Temperature):
+            return NotImplemented
+
+        a, b = self._cmp_kelvin(other)
+        return a > b or abs(a - b) <= TOLERANCE
+
+    # Gjør objektet unhashable-konsistent med __eq__ (toleranse => ikke hashbar)
+
+    __hash__ = None
