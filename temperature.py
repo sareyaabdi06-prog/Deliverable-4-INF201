@@ -75,4 +75,10 @@ class Temperature:
 
         return Temperature(converters[target](), target)
 
-    
+        # --- strengrepresentasjoner ---
+
+    def __repr__(self):
+        return f"Temperature({self._value}, '{self._unit}')"
+
+    def __str__(self):
+        return f"{self._value:.2f} °{self._unit}"
