@@ -83,3 +83,24 @@ def test_div_by_zero():
 def test_arithmetic_with_other_types():
     with pytest.raises(TypeError):
         Fraction(1, 2) + 1
+
+# Andre spesialmetoder
+
+def test_neg_and_abs():
+    assert -Fraction(1, 2) == Fraction(-1, 2)
+    assert abs(Fraction(-3, 4)) == Fraction(3, 4)
+
+
+def test_float():
+    assert float(Fraction(1, 4)) == 0.25
+
+
+def test_hash_consistent_with_eq():
+    assert hash(Fraction(1, 2)) == hash(Fraction(2, 4))
+    assert len({Fraction(1, 2), Fraction(2, 4), Fraction(1, 3)}) == 2
+
+
+def test_str_and_repr():
+    assert str(Fraction(3, 4)) == "3/4"
+    assert str(Fraction(4, 2)) == "2"
+    assert repr(Fraction(2, 4)) == "Fraction(1, 2)"
