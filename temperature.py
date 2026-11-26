@@ -48,3 +48,31 @@ class Temperature:
             return self._value - 273.15
 
         return (self._value - 32) * 5 / 9  # Fahrenheit
+
+    def to_fahrenheit(self):
+        if self._unit == "F":
+            return self._value
+
+        if self._unit == "C":
+            return self._value * 9 / 5 + 32
+
+        return (self._value - 273.15) * 9 / 5 + 32  # Kelvin
+
+    def to_kelvin(self):
+        if self._unit == "K":
+            return self._value
+
+        if self._unit == "C":
+            return self._value + 273.15
+
+        return (self._value - 32) * 5 / 9 + 273.15  # Fahrenheit
+
+    def convert_to(self, target_unit):
+        """Returnerer en NY Temperature i target_unit."""
+        target = self._validate_unit(target_unit)
+
+        converters = {"C": self.to_celsius, "F": self.to_fahrenheit, "K": self.to_kelvin}
+
+        return Temperature(converters[target](), target)
+
+    
