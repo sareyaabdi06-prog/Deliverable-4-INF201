@@ -30,3 +30,27 @@ def test_non_positive_denominator(den):
 def test_non_integer_arguments(num, den):
     with pytest.raises(TypeError):
         Fraction(num, den)
+
+# Sammenligninger
+
+def test_equal_and_not_equal():
+    assert Fraction(1, 2) == Fraction(2, 4)
+    assert Fraction(1, 2) != Fraction(1, 3)
+
+
+def test_ordering():
+    a, b = Fraction(1, 3), Fraction(1, 2)
+
+    assert a < b and a <= b and b > a and b >= a
+    assert Fraction(1, 2) <= Fraction(2, 4)
+    assert Fraction(1, 2) >= Fraction(2, 4)
+    assert not (b < a) and not (a > b)
+    assert Fraction(-1, 2) < Fraction(1, 3)
+
+
+def test_comparison_with_other_types():
+    assert Fraction(1, 2).__eq__(0.5) is NotImplemented
+    assert Fraction(1, 2).__lt__(1) is NotImplemented
+
+    with pytest.raises(TypeError):
+        Fraction(1, 2) < 1
