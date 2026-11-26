@@ -27,3 +27,24 @@ class Temperature:
         if not isinstance(unit, str) or unit.upper() not in _VALID_UNITS:
             raise ValueError(f"Invalid unit {unit!r}. Use 'C', 'F' or 'K'.")
         return unit.upper()
+
+    # --- read-only attributter ---
+
+    @property
+    def value(self):
+        return self._value
+
+    @property
+    def unit(self):
+        return self._unit
+
+    # --- konverteringer ---
+
+    def to_celsius(self):
+        if self._unit == "C":
+            return self._value
+
+        if self._unit == "K":
+            return self._value - 273.15
+
+        return (self._value - 32) * 5 / 9  # Fahrenheit
